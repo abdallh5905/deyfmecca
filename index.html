@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ضيوف مكة | رحلات العمرة</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    /* Header */
+    header {
+      background: rgba(0,0,0,0.85);
+      color: #fff;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    header h1 { font-size: 24px; }
+    nav a {
+      color: #ffd54f;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    nav a:hover { color: #fff; }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh; /* تم التعديل علشان ميظهرش فراغ */
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)), 
+                  url('img/66.png') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      flex-direction: column;
+      padding: 0 20px;
+    }
+    .hero h2 { font-size: 44px; margin-bottom: 25px; }
+    .hero p { font-size: 20px; min-height: 60px; transition: opacity 1s; }
+
+    .fade-text { opacity: 0; transition: opacity 1s ease-in-out; }
+    .fade-text.show { opacity: 1; }
+
+    /* Hero Buttons */
+    .hero-buttons {
+      margin-top: 25px;
+    }
+    .hero-buttons a {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 12px 25px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .btn-call {
+      background: #00695c;
+      color: #fff;
+    }
+    .btn-call:hover { background: #004d40; }
+    .btn-whatsapp {
+      background: #25D366;
+      color: #fff;
+    }
+    .btn-whatsapp:hover { background: #1ebe57; }
+
+    /* Sections */
+    section {
+      padding: 70px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    section h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 30px;
+      color: #00695c;
+      position: relative;
+    }
+    section h2::after {
+      content: '';
+      width: 60px;
+      height: 3px;
+      background: #ffd54f;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -10px;
+    }
+
+    .about { text-align: center; font-size: 18px; }
+
+    /* Cards Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+    .card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s, background 0.3s;
+    }
+    .card:hover { transform: translateY(-8px); background: #fafafa; }
+    .card h3 { margin-bottom: 10px; color: #333; }
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      max-height: 200px;
+      object-fit: cover;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #00695c;
+      color: #fff;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .btn:hover { background: #004d40; }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .gallery img:hover { transform: scale(1.05); }
+
+    /* Footer */
+    footer {
+      background: #004d40;
+      color: #fff;
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+    }
+    footer a { color: #ffd54f; text-decoration: none; }
+
+    /* Floating Buttons */
+    .floating-buttons {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      z-index: 1000;
+    }
+    .floating-buttons a {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 24px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: 0.3s;
+    }
+    .floating-call { background: #00695c; }
+    .floating-call:hover { background: #004d40; }
+    .floating-whatsapp { background: #25D366; }
+    .floating-whatsapp:hover { background: #1ebe57; }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffd54f;
+    }
+    .logo i {
+      font-size: 32px;
+      margin-left: 10px;
+      color: #ffd54f;
+    }
+
+    .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-text {
+      flex: 1 1 400px;
+    }
+    .about-video {
+      flex: 1 1 400px;
+    }
+    .about-video video {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <i class="fas fa-kaaba"></i>
+      <span>ضيوف مكة</span>
+    </div>
+  </header>
+
+  <!-- Hero with Rotating Text -->
+  <section class="hero">
+    <h2>رحلات عمرة استثنائية من المدينة</h2>
+    <p id="rotatingText" class="fade-text"></p>
+    <div class="hero-buttons">
+      <a href="tel:0561741353" class="btn-call"><i class="fas fa-phone"></i> اتصال</a>
+      <a href="https://wa.me/966561741353" target="_blank" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> واتساب</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="about">
+    <h2>من نحن</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p>
+          <strong>ضيوف مكة</strong> وجهتك الموثوقة لتنظيم رحلات العمرة.
+          نوفر لك باقات متنوعة وخدمات مميزة لتجعل رحلتك الروحية مريحة وآمنة،
+          من النقل الحديث إلى الإقامة الراقية بالقرب من الحرم.
+        </p>
+      </div>
+      <div class="about-video">
+        <video autoplay muted loop playsinline>
+          <source src="img/about.mp4" type="video/mp4">
+          متصفحك لا يدعم تشغيل الفيديو.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- Packages -->
+  <section id="packages">
+    <h2>رحلاتنا الأسبوعية</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="img/sat.jpg" alt="رحلة السبت">
+        <h3>رحلة السبت</h3>
+        <p>رحلة السبت بعد العشاء عودة الاثنين بعد الظهر</p>
+        <a href="https://wa.me/966561741353" target="_blank" class="btn">احجز الآن</a>
+      </div>
+      <div class="card">
+        <img src="img/mon.jpg" alt="رحلة الاثنين">
+        <h3>رحلة الاثنين</h3>
+        <p>رحلة الاثنين بعد العشاء عودة الأربعاء بعد الظهر</p>
+        <a href="https://wa.me/966561741353" target="_blank" class="btn">احجز الآن</a>
+      </div>
+      <div class="card">
+        <img src="img/wed.jpg" alt="رحلة الأربعاء">
+        <h3>رحلة الأربعاء</h3>
+        <p>رحلة الأربعاء بعد العشاء عودة الجمعة</p>
+        <a href="https://wa.me/966561741353" target="_blank" class="btn">احجز الآن</a>
+      </div>
+      <div class="card">
+        <img src="img/thu-evening.jpg" alt="رحلة الخميس العصر">
+        <h3>رحلة الخميس (العصر)</h3>
+        <p>رحلة الخميس بعد العصر عودة الجمعة والسبت</p>
+        <a href="https://wa.me/966561741353" target="_blank" class="btn">احجز الآن</a>
+      </div>
+      <div class="card">
+        <img src="img/thu-night.jpg" alt="رحلة الخميس العشاء">
+        <h3>رحلة الخميس (العشاء)</h3>
+        <p>رحلة الخميس بعد العشاء عودة الجمعة والسبت</p>
+        <a href="https://wa.me/966561741353" target="_blank" class="btn">احجز الآن</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <h2>الخدمات</h2>
+    <div class="grid">
+      <div class="card">
+        <img src="img/shuttle.jpg" alt="باصات ترددية">
+        <h3>باصات ترددية</h3>
+        <p>باصات ترددية من الفندق للحرم على مدار اليوم لرحلة مريحة وسهلة.</p>
+        <a href="https://wa.me/966561741353" target="_blank" class="btn">احجز الآن</a>
+      </div>
+      <div class="card">
+        <img src="img/staff.jpg" alt="مشرفين متميزين">
+        <h3>مشرفين متميزين</h3>
+        <p>مشرفين متميزين لمتابعة الرحلة وتقديم الدعم الكامل طول فترة العمرة.</p>
+        <a href="https://wa.me/966561741353" target="_blank" class="btn">احجز الآن</a>
+      </div>
+      <div class="card">
+        <img src="img/hotel.jpg" alt="فنادق قريبة">
+        <h3>فنادق قريبة للحرم</h3>
+        <p>إقامة في فنادق قريبة من الحرم لتسهيل أداء المناسك براحة وطمأنينة.</p>
+        <a href="https://wa.me/966561741353" target="_blank" class="btn">احجز الآن</a>
+      </div>
+      <div class="card">
+        <img src="img/bus2025.jpg" alt="باصات حديثة">
+        <h3>باصات حديثة</h3>
+        <p>نقل فاخر بباصات موديل 2025 – 2026 لضمان أفضل تجربة سفر.</p>
+        <a href="https://wa.me/966561741353" target="_blank" class="btn">احجز الآن</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section id="gallery">
+    <h2>معرض الصور</h2>
+    <div class="gallery">
+      <img src="img/568876759.jpg" alt="مكة">
+      <img src="img/e2c3805e-95e8-492a-b6b2-6ce853421823.jpeg" alt="المدينة">
+      <img src="img/64c925c9-e84a-4e8b-86ca-f7322094763a.jpeg" alt="باص">
+      <img src="img/almasah-hotel-6-1-2022.webp" alt="المدينة">
+      <img src="img/0888795e-c89b-44f3-864d-f6cf65994927.jpeg" alt="باص">
+      <img src="img/f3840a58-37b1-4f4b-b345-24f4b8fd1b7f.jpeg" alt="مكة">
+      <img src="img/3c18d127-08b5-4d6d-8461-58ee715c5911.jpeg" alt="المدينة">
+      <img src="img/pexels-mjlo-2787826-2048x1365.jpg" alt="باص">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 ضيوف مكة | للتواصل: <a href="tel:0561741353">0561741353</a></p
+      <p>
+      <a href="https://wa.me/201025116712" target="_blank" style="color:#ffd54f; font-weight:600; text-decoration:none;">
+        تصميم عبدالله محمد
+      </a>
+    </p>>
+  </footer>
+
+  <!-- Floating Buttons -->
+  <div class="floating-buttons">
+    <a href="tel:0561741353" class="floating-call"><i class="fas fa-phone"></i></a>
+    <a href="https://wa.me/966561741353" target="_blank" class="floating-whatsapp"><i class="fab fa-whatsapp"></i></a>
+  </div>
+
+  <!-- Rotating Text Script -->
+  <script>
+    const texts = [
+      "رحلات عمرة مخصصة للأفراد والعائلات والمجموعات بأسعار تنافسية وخدمة متميزة",
+      "نوفر لكم تجربة روحانية فريدة مع مرشدين متخصصين ومتابعة على مدار الساعة",
+      "نقدم لكم خدمات متكاملة لرحلة عمرة مريحة وآمنة من المدينة، مع أفضل الفنادق والمواصلات",
+      "باقات عمرة رمضان المميزة متوفرة الآن بخصومات حصرية وخدمات إضافية للمعتمرين"
+    ];
+
+    let index = 0;
+    const rotatingText = document.getElementById("rotatingText");
+
+    function showText() {
+      rotatingText.classList.remove("show");
+      setTimeout(() => {
+        rotatingText.textContent = texts[index];
+        rotatingText.classList.add("show");
+        index = (index + 1) % texts.length;
+      }, 1000);
+    }
+
+    showText();
+    setInterval(showText, 4000);
+  </script>
+
+</body>
+</html>
